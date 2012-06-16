@@ -1,0 +1,52 @@
+<?php
+echo '<?xml version="1.0" encode="UTF-8" ?>';
+echo $this->doctype();
+?><html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <?php
+        echo $this->headTitle();
+        echo $this->headScript();
+        echo $this->headLink()->appendStylesheet('css/layout.css');
+        //echo $this->headLink();
+        ?>
+    </head>
+    <body>
+        <div id="pageWrapper">
+            <div id="bHeader">
+                <p>ZCMS</p>
+            </div>
+            <div id="nav">
+                <?php 
+                echo $this->layout()->nav;
+                ?>&nbsp;
+            </div>
+            <div id="sidebar">
+                <div id="subNav1">
+                     <?php 
+                echo $this->layout()->nav1;
+                ?>&nbsp;
+                </div>
+                <div id="subNav2">
+                   <?php 
+                echo $this->layout()->nav2;
+                ?>&nbsp;
+                </div>
+                <div id="userForm">
+                     <?php 
+                echo $this->layout()->userForm;
+                ?>&nbsp;
+                </div>
+                <p>#sideBar</p>
+            </div>
+            <div id="main">
+                <?php 
+                echo $this->layout()->content;
+                ?>&nbsp;
+            </div>
+            <div id="footer">
+                <p>ZCMS</p>
+            </div>
+        </div>
+    </body>
+</html>
