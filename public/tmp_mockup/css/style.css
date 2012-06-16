@@ -1,0 +1,63 @@
+@CHARSET "ISO-8859-1";
+
+body {
+    font-size:10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    padding: .5em;
+    font-size: 1.2em;
+}
+
+#pageWrapper {
+    background: #999;
+    width: 79em;
+    margin: 1em auto;
+    padding: .5em;
+}
+
+#bHeader {
+    background: #fff;
+    height: 7.5em;
+    margin:  0 0 .5em 0;
+}
+
+#nav {
+    background: #ccccff;
+    height: 2.5em;
+    margin: 0 0 .5em 0;
+}
+
+#sidebar {
+    background: #fff;
+    float: right;
+    width: 17em;
+    height: 40em;
+    margin:  0 0 .5em .5em;
+    padding: 0.5em;
+}
+
+#main {
+    background: #3333ff;
+    height: 41em;
+    margin: 0 0 .5em 0;
+}
+
+#subNav1,#subNav2, #userForm {
+    background: #ccccff;
+    width: 17em;
+    height: 10em;
+    margin: 0 0 .5em 0;
+}
+
+#footer {
+    clear: both;
+    background: #ffffff;
+    height: 2.5em;
+    margin: 0;
+}
