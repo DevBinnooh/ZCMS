@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+/* 
+    Document   : text
+    Created on : Jun 18, 2012
+    Author     : devBinnooh <devBinnooh@gmail.com>
+    Description:
+        Sets text preference.
+*/
+
+
+body { 
+    font-family: Helvetica,Arial,sans-serif;
+}
+

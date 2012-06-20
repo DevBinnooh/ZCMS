@@ -1,0 +1,78 @@
+@CHARSET "ISO-8859-1";
+/* 
+    Document   : layout
+    Created on : Jun 18, 2012
+    Author     : devBinnooh <devBinnooh@gmail.com>
+    Description:
+        Skin layout.
+*/
+
+
+body { 
+    font-size: 10px;
+    background: url(../images/body.jpg) repeat-x;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    padding: .5em;
+    font-size: 1.2em;
+}
+
+
+#pageWrapper {
+    background: #ffff;
+    width: 79em;
+    margin: 1em auto;
+    padding: 1em 0;
+    -moz-border-radius: 5px;
+    border: #749BCE 1px solid;
+}
+
+#bHeader {
+    height: 5em;
+    margin:  1em 2em;
+}
+
+#nav {
+    background: url(../images/nav.jpg) repeat-x #CFF;
+    height: 2.5em;
+    margin: 0 0 .5em 0;
+    padding: .5em 0;
+    border-top: #FD9421 1px solid;
+}
+
+#sidebar {
+    float: right;
+    width: 17em;
+    height: 40em;
+    margin:  0 0 .5em .5em;
+    padding: 0.5em;
+    border-left: #FD9421 1px solid;
+}
+
+#main {
+    min-height: 30em;
+    margin: 0 0 .5em 0;
+    padding: 2em;
+}
+
+#subNav1,#subNav2, #userForm {
+    width: 17em;
+    height: 10em;
+    margin: 0 0 .5em 0;
+}
+
+#footer {
+    clear: both;
+    height: 2.5em;
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+     border-top: #FD9421 1px solid;
+}
+
