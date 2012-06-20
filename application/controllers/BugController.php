@@ -1,6 +1,7 @@
 <?php
+
 /*
-  Copyright (C) 2012  DevBinnooh <http://www.binnooh.com>
+  Copyright (C) 2012
   Redistribution and use in source and binary forms, with or without modification,
   are permitted provided that the following conditions are met:
 
@@ -22,21 +23,20 @@
   OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 /**
- * Description of Zcms_View_Helper_LoadSkin
+ * Description of BugController
  *
  * @author devBinnooh <devBinnooh@gmail.com>
  */
-class Zend_View_Helper_loadSkin extends Zend_View_Helper_Abstract{
-    
-    public function loadSkin($skin) {
-        $skinData = new Zend_Config_Xml(APPLICATION_PATH.'/../public/skins/'.$skin.'/skin.xml');
-        $stylesheets = $skinData->stylesheets->stylesheet->toArray();
-        if(isset ($stylesheets) && is_array($stylesheets)){
-            foreach ($stylesheets as $stylesheet){
-                $this->view->headLink()->appendStylesheet('/skins/'.$skin.'/css/'.$stylesheet);
-            }
-        }
+class BugController extends Zend_Controller_Action{
+ 
+     public function init()
+    {
+        /* Initialize action controller here */
+    }
+
+    public function createAction()
+    {
+        $this->_helper->layout;
     }
 }
-
 ?>
