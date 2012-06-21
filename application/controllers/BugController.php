@@ -44,6 +44,12 @@ class BugController extends Zend_Controller_Action{
         $bugForm = new Form_BugReportForm();
         $bugForm->setAction('/bug/submit');
         $bugForm->setMethod('post');
+        if($this->getRequest()->isPost()){
+            if($bugForm->isValid($_POST)){
+                //TODO process data
+                $data = $bugForm->getValues();
+            }
+        }
         $this->view->form = $bugForm;
     }
 }

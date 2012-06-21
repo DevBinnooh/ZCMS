@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+/* 
+    Document   : form
+    Created on : Jun 21, 2012, 
+    Author     : DevBinnooh <devBinnooh@gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+dt {
+    padding: 0 0 5px 0;
+}
+
+dd {
+    padding: 0 0 10px 10px;
+}
+
+dt label {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+dt label.required:before {
+    content: "* ";
+    color: #ff0000;
+}
+
+ul.errors {
+    padding: 5px 0 5px 25px;
+    color: #ff0000;
+}
+
