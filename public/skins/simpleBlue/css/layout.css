@@ -10,7 +10,7 @@
 
 body { 
     font-size: 10px;
-    background: url(../images/body.jpg) repeat-x;
+/*    background: url(../images/body.jpg) repeat-x;*/
 }
 
 * {
@@ -39,7 +39,7 @@ p {
 }
 
 #nav {
-    background: url(../images/nav.jpg) repeat-x #CFF;
+/*    background: url(../images/nav.jpg) repeat-x #CFF;*/
     height: 2.5em;
     margin: 0 0 .5em 0;
     padding: .5em 0;

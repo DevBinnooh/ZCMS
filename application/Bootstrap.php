@@ -13,8 +13,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $viewRander = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
         $viewRander->setView($view);
         
-        return $view;
-        
+        return $view;   
+    }
+    
+    protected function _initAutoLoad() {
+        $autoLoad = Zend_Loader_Autoloader::getInstance();
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
+            'basePath' => APPLICATION_PATH,
+            'namespace' => '',
+            'resourceTypes' => array(
+                'form' => array(
+                    'path' => 'forms/',
+                    'namespace' => 'Form_'
+                )
+            )
+        ));
+        return $autoLoad;
     }
 
 }
