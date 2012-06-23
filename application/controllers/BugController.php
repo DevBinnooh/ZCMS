@@ -29,18 +29,15 @@
  */
 class BugController extends Zend_Controller_Action{
  
-     public function init()
-    {
+     public function init(){
         /* Initialize action controller here */
     }
 
-    public function createAction()
-    {
+    public function createAction(){
         $this->_helper->layout;
     }
     
     public function submitAction() {
-        
         $bugForm = new Form_BugReportForm();
         $bugForm->setAction('/bug/submit');
         $bugForm->setMethod('post');
@@ -62,6 +59,15 @@ class BugController extends Zend_Controller_Action{
             }
         }
         $this->view->form = $bugForm;
+    }
+    
+    /**
+     * List All bugs
+     */
+    public function listAction(){
+        //TODO BugController#listAction - custom list instead of listing all
+        $bugModel = new Model_Bug();
+        $this->view->bugs = $bugModel->fetchAllBugs();
     }
 }
 ?>

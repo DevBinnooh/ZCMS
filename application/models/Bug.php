@@ -52,6 +52,15 @@ class Model_Bug extends Zend_Db_Table_Abstract {
         //return database generated id
         return $this->_db->lastInsertId();
     }
+    
+    /**
+     * Function that returns all stored bugs
+     * @return Zend_db_Table_Rowset 
+     */
+    public function fetchAllBugs() {
+        return $this->fetchAll($this->select());
+        
+    }
 }
 
 ?>
