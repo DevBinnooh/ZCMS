@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Copyright (C) 2012
+  Copyright (C) 2012 DevBinnooh <http://www.binnooh.com>
   Redistribution and use in source and binary forms, with or without modification,
   are permitted provided that the following conditions are met:
 
@@ -23,45 +23,35 @@
   OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 /**
- * Description of BugController
+ * Model for bug reporting
  *
  * @author devBinnooh <devBinnooh@gmail.com>
  */
-class BugController extends Zend_Controller_Action{
- 
-     public function init()
-    {
-        /* Initialize action controller here */
-    }
-
-    public function createAction()
-    {
-        $this->_helper->layout;
-    }
+class Model_Bug extends Zend_Db_Table_Abstract {
+    protected $_name = 'bugs';
     
-    public function submitAction() {
+    public function createBug($name, $email, $date,
+            $url,$description, $priority,
+            $status) {
         
-        $bugForm = new Form_BugReportForm();
-        $bugForm->setAction('/bug/submit');
-        $bugForm->setMethod('post');
-        if($this->getRequest()->isPost()){
-            if($bugForm->isValid($_POST)){
-                $bugModel = new Model_Bug();
-                $result = $bugModel->createBug(
-                        $bugForm->getValue('author'),
-                        $bugForm->getValue('email'),
-                        $bugForm->getValue('date'),
-                        $bugForm->getValue('url'),
-                        $bugForm->getValue('description'),
-                        $bugForm->getValue('priority'),
-                        $bugForm->getValue('status'));
-                //TODO BugController#submitAction - better confirm and checking
-                if ($result){
-                    $this->_forward('confirm');
-                }
-            }
-        }
-        $this->view->form = $bugForm;
+        $tmpDate = new Zend_Date($date);
+        $tmpDate->get(Zend_Date::TIMESTAMP);
+        $row = $this->createRow(array(
+            'author' => $name,
+            'email' => $email,
+            //date will be set auto or
+            'date' => $tmpDate,
+            'url' => $url,
+            'description' => $description,
+            'priority' => $priority,
+            'status' => $status
+        ));
+        
+        $row->save();
+        
+        //return database generated id
+        return $this->_db->lastInsertId();
     }
 }
+
 ?>
