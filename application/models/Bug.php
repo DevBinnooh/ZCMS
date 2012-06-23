@@ -61,6 +61,58 @@ class Model_Bug extends Zend_Db_Table_Abstract {
         return $this->fetchAll($this->select());
         
     }
+    
+    /**
+     * Fetch filtered bugs
+     * TODO Model_Bug#fetchBugs - doc
+     */
+    public function fetchBugs($filters = array(), $sortField = null, $limit=null, $page=1) {
+        $select = $this->select();
+        if (count($filters) > 0){
+            foreach ($filters as $field => $filter){
+                $select->where($field . ' = ?', $filter);
+            }
+        }
+        //add sorted field
+        if (null != $sortField){
+            $select->order($sortField);
+        }
+        
+        if(null != $limit){
+            $select->limit($limit, $page);
+        }
+        
+//        $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+        return $this->fetchAll($select);
+        
+    }
+    
+     /**
+     * Fetch filtered bugs
+     * TODO Model_Bug#fetchPagInatorAdaptor - doc
+     * @return Zend_Paginator_Adapter_DbTableSelect 
+     */
+    public function fetchPaginatorAdapter($filters = array(), $sortField = null, $limit=null, $page=1) {
+        $select = $this->select();
+        if (count($filters) > 0){
+            foreach ($filters as $field => $filter){
+                $select->where($field . ' = ?', $filter);
+            }
+        }
+        //add sorted field
+        if (null != $sortField){
+            $select->order($sortField);
+        }
+        
+//        if(null != $limit){
+//            $select->limit($limit, $page);
+//        }
+        
+        $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+        return $adapter;
+        
+    }
+    
 }
 
 ?>

@@ -65,9 +65,28 @@ class BugController extends Zend_Controller_Action{
      * List All bugs
      */
     public function listAction(){
-        //TODO BugController#listAction - custom list instead of listing all
+        
+        $listToolsForm = new Form_BugReportForm();
+        $sort = null;
+        $filter = null;
+        if ($this->getRequest()->isPost()){
+            if ($listToolsForm->isValid($_POST)){
+                $sortValue = $listToolsForm->getValue('sort');
+                if('0' != $sortValue){
+                    $sort = $sortValue;
+                }
+                $filterValues = $listToolsForm->getValue('filter_field');
+                if ('0' != $filterValues){
+                    $filter[$filterValues] = $listToolsForm->getValue('filter');
+                }
+            }
+        }
         $bugModel = new Model_Bug();
-        $this->view->bugs = $bugModel->fetchAllBugs();
+        $this->view->bugs = $bugModel->fetchBugs();
+       
+        $listToolsForm->setAction('/bug/list');
+        $listToolsForm->setMethod('post');
+        $this->view->listToolsForm = $listToolsForm;
     }
 }
 ?>
