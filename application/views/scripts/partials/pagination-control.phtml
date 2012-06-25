@@ -1,0 +1,53 @@
+<?php
+if ($this->pageCount) {
+    $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+    unset($params['module']);
+    unset($params['controller']);
+    unset($params['action']);
+    ?>
+
+
+    <div class="paginationControl">
+        <?php
+        if (isset($this->previous)) {
+            ?>
+            <a href="<?php echo $this->url(array_merge(
+                        $params, array('page' => $this->previous))); ?>">
+                &lt; Previous
+            </a> | 
+        <?php } else { ?>
+            <span class="disabled">&lt; Previous </span> |
+            <?php
+        }
+        ?>
+
+
+        <?php
+        foreach ($this->pagesInRange as $page) {
+            if ($page != $this->current) {
+                ?>
+                <a href="<?php echo $this->url(array_merge(
+                            $params, array('page' => $this->previous))); ?>">
+                       <?php
+                       echo $page;
+                       ?>
+                    | </a>
+                <?php
+            } else {
+                echo $page;
+            }
+        }
+        if (isset($this->next)) {
+            ?>
+            <a href="<?php echo $this->url(
+                array_merge($params, array('page' => $this->next))); ?>">
+                Next &gt;</a>
+        <?php } else { ?>
+            <span class="disabled">Next &gt;</span>
+            <?php
+        }
+        ?>
+    </div>   
+    <?php
+}
+?>

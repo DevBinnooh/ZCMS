@@ -66,27 +66,37 @@ class BugController extends Zend_Controller_Action{
      */
     public function listAction(){
         
-        $listToolsForm = new Form_BugReportForm();
-        $sort = null;
-        $filter = null;
-        if ($this->getRequest()->isPost()){
-            if ($listToolsForm->isValid($_POST)){
-                $sortValue = $listToolsForm->getValue('sort');
-                if('0' != $sortValue){
-                    $sort = $sortValue;
-                }
-                $filterValues = $listToolsForm->getValue('filter_field');
-                if ('0' != $filterValues){
-                    $filter[$filterValues] = $listToolsForm->getValue('filter');
-                }
-            }
-        }
-        $bugModel = new Model_Bug();
-        $this->view->bugs = $bugModel->fetchBugs();
-       
+        $listToolsForm = new Form_BugReportListToolsForm();
         $listToolsForm->setAction('/bug/list');
         $listToolsForm->setMethod('post');
         $this->view->listToolsForm = $listToolsForm;
+        
+        $sort = $this->_request->getParam('sort', null);
+        $filter_field = $this->_request->getParam('filter_field', NULL);
+        $filterValue = $this->_request->getParam('filter');
+       
+        if(!empty ($filter_field)){
+            $filter[$filter_field] = $filterValue; 
+        }else {
+            $filter = null;
+        }
+        
+        $listToolsForm->getElement('sort')->setValue($sort);
+        $listToolsForm->getElement('filter_field')->setValue($filter_field);
+        $listToolsForm->getElement('filter')->setValue($filter);
+        
+        
+        $bugModel = new Model_Bug();
+        $adapter = $bugModel->fetchPaginatorAdapter($filter, $sort);
+        $paginator = new Zend_Paginator($adapter);
+        
+        $paginator->setItemCountPerPage(10);
+        $page = $this->_request->getParam('page', 1);
+        $paginator->setCurrentPageNumber($page);
+        
+        $this->view->paginator = $paginator;
+       
+        
     }
 }
 ?>
