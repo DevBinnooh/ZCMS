@@ -122,7 +122,7 @@ class Model_Bug extends Zend_Db_Table_Abstract {
         if ($row){
             $row->author = $name;
             $row->email = $email;
-            $dt = new_Zend_Date($date);
+            $dt = new Zend_Date($date);
             $row->date = $dt->get(Zend_date::TIMESTAMP);
             $row->url = $url;
             $row->description = $description;
