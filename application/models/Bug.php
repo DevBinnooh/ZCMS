@@ -113,6 +113,41 @@ class Model_Bug extends Zend_Db_Table_Abstract {
         
     }
     
+    public function updateBug($id, $name, $email,
+            $date, $url, $description,
+            $priority, $status) {
+        
+        $row = $this->find($id)->current();
+        
+        if ($row){
+            $row->author = $name;
+            $row->email = $email;
+            $dt = new_Zend_Date($date);
+            $row->date = $dt->get(Zend_date::TIMESTAMP);
+            $row->url = $url;
+            $row->description = $description;
+            $row->priority = $priority;
+            $row->status = $status;
+            
+            $row->save();
+            return true;
+        }else{
+            throw new Zend_Exception('Update failed, Can\'t find matching row');
+        }
+    }
+    
+    /**
+     * Deletes a bug
+     */
+    public function deleteBug($id) {
+        $row = $this->find($id)->current();
+        if($row){
+            $row->delete();
+            return true;
+        }else {
+            throw new Zend_Exception('Delete failed, can\'t find a matching row.');
+        }
+    }
 }
 
 ?>

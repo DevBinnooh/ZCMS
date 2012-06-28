@@ -95,8 +95,46 @@ class BugController extends Zend_Controller_Action{
         $paginator->setCurrentPageNumber($page);
         
         $this->view->paginator = $paginator;
-       
-        
+    }
+    
+    /**
+     * Edit a bug
+     */
+    public function editAction() {
+        $bugModel = new Model_Bug();
+        $bugReportForm = new Form_BugReportForm();
+        $bugReportForm->setAction('/bug/edit');
+        $bugReportForm->setMethod('post');
+        if($this->getRequest()->isPost()){
+            if($bugReportForm->isValid($_POST)){
+                $bugModel = new Model_Bug();
+                $result = $bugModel->updateBug($bugReportForm->getValue('id'),
+                        $bugReportForm->getValue('author'),
+                        $bugReportForm->getValue('email'),
+                        $bugReportForm->getValue('date'),
+                        $bugReportForm->getValue('url'),
+                        $bugReportForm->getValue('description'),
+                        $bugReportForm->getValue('priority'),
+                        $bugReportForm->getValue('status'));
+                return $this->_forward('list');
+            }
+        }else {
+        $id = $this->_request->getParam('id');
+        $bug = $bugModel->find($id)->current();
+        $bugReportForm->populate($bug->toArray());
+        $formatBugReport->getElement('date')->setValue(date('m-d-y',$bug->date));  
+        }
+        $this->view->form = $bugReportForm;
+    }
+    
+    /**
+     * Delete a bug
+     */
+    public function deleteAction() {
+        $bugModel = new Model_Bug();
+        $id = $this->_request->getParam('id');
+        $bugModel->deleteBug($id);
+        return $this->_forward('list');
     }
 }
 ?>

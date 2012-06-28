@@ -31,6 +31,10 @@ class Form_BugReportForm extends Zend_Form{
     
     public function init() {
     
+        //ID
+        $id = $this->createElement('hidden', 'id');
+        $this->addElement($id);
+        
         //Author text element
         $authorField = $this->createElement('text', 'author');
         $authorField->setLabel('Enter Your Name: ');
