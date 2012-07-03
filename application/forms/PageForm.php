@@ -46,7 +46,7 @@ class Form_PageForm extends Zend_Form {
         $headline->setLabel('Headline: ');
         $headline->setRequired(TRUE);
         $headline->setAttrib('size', 50);
-        $this->addElement($name);
+        $this->addElement($headline);
         
         //Image 
         $image = new Zend_Form_Element_File('image');
@@ -64,7 +64,7 @@ class Form_PageForm extends Zend_Form {
         $description->setRequired(TRUE);
         $description->setAttrib('cols', 40);
         $description->setAttrib('rows', 4);
-        $this->addElement($name);
+        $this->addElement($description);
         
         //content
         $content = $this->createElement('textarea', 'content');
