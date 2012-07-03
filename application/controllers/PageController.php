@@ -28,11 +28,72 @@
  */
 class PageController extends Zend_Controller_Action {
    
+    /**
+     * Creates a new page
+     * @return type 
+     */
     public function createAction() {
         $pageForm = new Form_PageForm();
+        if ($this->getRequest()->isPost()){
+            if($pageForm->isValid($_POST)){
+                //create a new page item
+                $itemPage = new CMS_Content_Item_Page();
+                $itemPage->name = $pageForm->getValue('name');
+                $itemPage->headline = $pageForm->getValue('headline');
+                $itemPage->description = $pageForm->getValue('description');
+                $itemPage->content = $pageForm->getValue('content');
+                
+                //upload image
+                if($pageForm->image->isUploaded()){
+                    $pageForm->image->receive();
+                    $itemPage->image = '/images/upload/'.
+                    basename($pageForm->image->getFileName());
+                }
+                //save content item
+                $itemPage->save();
+                return $this->_forward('list');
+            }
+        }
         $pageForm->setAction('/page/create');
         $this->view->form = $pageForm;
+    }
+    
+    /**
+     * List Available pages
+     */
+    public function listAction() {
         
+        $pageModle = new Model_Page();
+        $select = $pageModle->select();
+        $select->order('name');
+        $currentPages = $pageModle->fetchAll($select);
+        if($currentPages->count() > 0){
+            $this->view->pages = $currentPages;
+        }else {
+            $this->view->pages = null;
+        }
+    }
+    
+    /**
+     * Edits an existing page
+     */
+    public function editAction() {
+        
+        $id = $this->_request->getParam('id');
+        $itemPage = new CMS_Content_Item_Page($id);
+        $pageForm = new Form_PageForm();
+        $pageForm->setAction('/page/edit');
+        $pageForm->populate($itemPage->toArray());
+        
+        //create image preview
+        $imagePreview = $pageForm->createElement('image', 'image_preview');
+        $imagePreview->setLabel('Preview Image: ');
+        $imagePreview->setAttrib('style', 'width:200px;height:auto;');
+        $imagePreview->setOrder(4);
+        $imagePreview->setIgnore($itemPage->image);
+        $pageForm->addElement($imagePreview);
+        
+        $this->view->form = $pageForm;
     }
 }
 
